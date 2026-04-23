@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Психологічний тест: Твій рівень енергії</title>
+    <style>
+        /* Ергономіка: чистий шрифт, контрастні кольори, великі кнопки */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #333; display: flex; justify-content: center; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 600px; width: 100%; }
+        h1 { color: #1a73e8; text-align: center; font-size: 26px; margin-bottom: 25px; }
+        .question { margin-bottom: 15px; font-weight: 600; font-size: 18px; color: #444; }
+        .options { margin-bottom: 25px; }
+        .options label { display: block; background: #f8f9fa; margin: 10px 0; padding: 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; border: 1px solid #ddd; }
+        .options label:hover { background: #e8f0fe; border-color: #1a73e8; }
+        input[type="radio"] { margin-right: 12px; transform: scale(1.2); }
+        button { width: 100%; padding: 18px; background: #1a73e8; color: white; border: none; border-radius: 10px; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #1557b0; box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3); }
+        #result { margin-top: 25px; padding: 20px; border-radius: 10px; display: none; text-align: center; font-size: 18px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>⚡ Тест: Який твій рівень енергії?</h1>
+    <div id="quiz">
+        <!-- Питання 1 -->
+        <div class="question">1. Як ти почуваєшся зранку одразу після пробудження?</div>
+        <div class="options">
+            <label><input type="radio" name="q1" value="3"> Повним сил, готовий до нових справ!</label>
+            <label><input type="radio" name="q1" value="2"> Нормально, але треба трохи часу, щоб "прокинутись".</label>
+            <label><input type="radio" name="q1" value="1"> Дуже важко підвестися, хочу спати далі.</label>
+        </div>
+
+        <!-- Питання 2 -->
+        <div class="question">2. Як часто ти відчуваєш втому посеред навчального дня?</div>
+        <div class="options">
+            <label><input type="radio" name="q2" value="3"> Майже ніколи, я активний до вечора.</label>
+            <label><input type="radio" name="q2" value="2"> Інколи після важких уроків.</label>
+            <label><input type="radio" name="q2" value="1"> Постійно, ледве досиджую до останнього уроку.</label>
+        </div>
+
+        <!-- Питання 3 -->
+        <div class="question">3. Чи вистачає тобі енергії на прогулянки або спорт після школи?</div>
+        <div class="options">
+            <label><input type="radio" name="q3" value="3"> Так, я люблю активний відпочинок!</label>
+            <label><input type="radio" name="q3" value="2"> Залежить від настрою та кількості домашнього завдання.</label>
+            <label><input type="radio" name="q3" value="1"> Ні, мені хочеться тільки полежати вдома.</label>
+        </div>
+
+        <!-- Питання 4 -->
+        <div class="question">4. Як ти оцінюєш свою концентрацію під час виконання завдань?</div>
+        <div class="options">
+            <label><input type="radio" name="q4" value="3"> Легко зосереджуюсь і швидко все роблю.</label>
+            <label><input type="radio" name="q4" value="2"> Буває важко почати, але потім втягуюсь.</label>
+            <label><input type="radio" name="q4" value="1"> Постійно відволікаюсь, думки десь далеко.</label>
+        </div>
+
+        <!-- Питання 5 -->
+        <div class="question">5. Скільки годин ти зазвичай спиш у будні?</div>
+        <div class="options">
+            <label><input type="radio" name="q5" value="3"> 8-9 годин — лягаю вчасно.</label>
+            <label><input type="radio" name="q5" value="2"> 6-7 годин — хотілося б більше.</label>
+            <label><input type="radio" name="q5" value="1"> Менше ніж 6 годин — сиджу в телефоні допізна.</label>
+        </div>
+
+        <button onclick="calculateResult()">Отримати результат</button>
+    </div>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculateResult() {
+        const questions = ['q1', 'q2', 'q3', 'q4', 'q5'];
+        let score = 0;
+        let allAnswered = true;
+
+        questions.forEach(q => {
+            const selected = document.querySelector(`input[name="${q}"]:checked`);
+            if (selected) {
+                score += parseInt(selected.value);
+            } else {
+                allAnswered = false;
+            }
+        });
+
+        if (!allAnswered) {
+            alert("Будь ласка, дай відповіді на всі 5 запитань!");
+            return;
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        document.getElementById('quiz').style.display = 'none';
+
+        if (score >= 13) {
+            resultDiv.innerHTML = "<h2>🔋 Рівень: Високий</h2>Ти справжній енерджайзер! Твого ресурсу достатньо і для навчання, і для розваг. Так тримати!";
+            resultDiv.style.backgroundColor = "#d4edda";
+            resultDiv.style.color = "#155724";
+        } else if (score >= 8) {
+            resultDiv.innerHTML = "<h2>🪫 Рівень: Середній</h2>Твій запас енергії в нормі, але балансуй між роботою та відпочинком, щоб не «перегоріти».";
+            resultDiv.style.backgroundColor = "#fff3cd";
+            resultDiv.style.color = "#856404";
+        } else {
+            resultDiv.innerHTML = "<h2>🔌 Рівень: Низький</h2>Твій організм потребує підзарядки. Спробуй більше спати, гуляти на свіжому повітрі та менше часу проводити перед екраном.";
+            resultDiv.style.backgroundColor = "#f8d7da";
+            resultDiv.style.color = "#721c24";
+        }
+    }
+</script>
+
+</body>
+</html>
